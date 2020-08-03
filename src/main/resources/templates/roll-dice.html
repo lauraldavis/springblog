@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <head th:include="partials/partials :: header (pageTitle = 'Roll Dice')">
+</head>
+<body>
+
+    <h3>Welcome! Please guess a number from 1 to 6</h3>
+
+    <ul>
+        <a th:href="@{/roll-dice/1}"><li>1</li></a>
+        <a th:href="@{/roll-dice/2}"><li>2</li></a>
+        <a th:href="@{/roll-dice/3}"><li>3</li></a>
+        <a th:href="@{/roll-dice/4}"><li>4</li></a>
+        <a th:href="@{/roll-dice/5}"><li>5</li></a>
+        <a th:href="@{/roll-dice/6}"><li>6</li></a>
+    </ul>
+
+</body>
+</html>

@@ -31,10 +31,16 @@ public class MathController {
     @ResponseBody
     public String divide(@PathVariable int n1, @PathVariable int n2) {
         if (n2 != 0) {
-            return String.valueOf(n1 / n2);
+            return String.valueOf((double) n1 / n2);
         } else {
-            return "Divide by zero error";
+            return mathError();
         }
+    }
+
+    @GetMapping("/error")
+    @ResponseBody
+    public String mathError() {
+        return "Cannot divide by zero";
     }
 
 }

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <head th:include="partials/partials :: header (pageTitle = 'Roll Dice')">
+</head>
+<body>
+    <p>Your guess was: <span th:text="${dice}"></span></p>
+    <p>The dice rolled was: <span th:text="${roll}"></span></p>
+    <p th:text="${result}"></p>
+
+    <a href="/roll-dice">Play again!</a>
+
+</body>
+</html>

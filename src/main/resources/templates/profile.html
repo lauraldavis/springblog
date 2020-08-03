@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile</title>
+</head>
+<nav th:replace="partials/partials :: navbar"/>
+<body>
+
+    <h1>Hello, <span th:text="${user}">World</span>!</h1>
+
+    <p>Your username is: <span th:text="${username}">Placeholder</span></p>
+    <p>Your password is: <span th:text="${password}">Placeholder</span></p>
+
+    <!--forEach ad in collection ads-->
+    <div th:if = "${isLoggedIn}">
+        <ul th:each="ad : ${ads}">
+            <li th:text="${ad}"></li>
+        </ul>
+    </div>
+
+</body>
+<footer th:replace="partials/partials :: footer"/>
+</html>

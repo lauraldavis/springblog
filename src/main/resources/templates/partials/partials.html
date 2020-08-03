@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Partials</title>
+</head>
+<body>
+    <nav th:fragment="navbar">
+        <h1>This is your navbar</h1>
+    </nav>
+    <header th:fragment="head (pageTitle)">
+        <meta charset="UTF-8">
+        <title th:text="${pageTitle}"></title>
+    </header>
+    <footer th:fragment="footer">
+        <h1>This is your footer</h1>
+    </footer>
+
+</body>
+</html>
