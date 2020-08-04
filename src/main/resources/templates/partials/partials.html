@@ -11,6 +11,9 @@
     <header th:fragment="head (pageTitle)">
         <meta charset="UTF-8">
         <title th:text="${pageTitle}"></title>
+        <link rel="stylesheet" th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css}">
+        <script th:src="@{https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js}"></script>
+        <script th:src="@{https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js}"></script>
     </header>
     <footer th:fragment="footer">
         <h1>This is your footer</h1>
