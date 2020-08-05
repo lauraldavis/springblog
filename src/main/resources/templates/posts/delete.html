@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="partials/partials :: header (pageTitle = 'Delete Post')">
+</head>
+<nav th:replace="/partials/partials :: navbar"/>
+<body>
+
+<div class="container">
+    <h3 class="text-primary">To confirm you want to delete this post, click the Delete button!</h3>
+    <form action="/posts/delete" method="post">
+        <div class="form-group">
+            <label for="title">Post Title</label>
+            <input type="text" id="title" name="title" class="form-control" th:value="${post.title}" readonly>
+        </div>
+        <div class="form-group">
+            <label for="body">Post Body</label>
+            <input type="text" id="body" name="body" class="form-control" th:value="${post.body}" readonly>
+        </div>
+        <button type="submit" id="id" name="id" th:value="${post.id}" class="btn btn-primary btn-sm btn-block">Delete</button>
+    </form>
+</div>
+</body>
+<footer th:replace="partials/partials :: footer"/>
+</html>

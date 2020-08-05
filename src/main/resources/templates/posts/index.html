@@ -5,10 +5,21 @@
 <nav th:replace="/partials/partials :: navbar"/>
 <body>
 
-<div>
+<div class="container">
     <div th:each="post : ${posts}">
-        <h1 th:text="${post.title}"></h1>
-        <p th:text="${post.body}"></p>
+        <div class="card mb-3">
+            <div class="card body">
+                <h3 class="card-title" th:text="${post.title}"></h3>
+                <p class="card-text" th:text="${post.body}">
+                </p>
+                <!--        href - sends to another page-->
+                <!--        action - submits a form-->
+                <div class="card-footer text-right">
+                    <a th:href="@{/posts/{id}/edit(id=${post.id})}" class="btn btn-muted btn-sm"><i class="fas fa-edit"></i>Edit</a>
+                    <a th:href="@{/posts/{id}/delete(id=${post.id})}" class="btn btn-muted btn-sm"><i class="fas fa-trash"></i>Delete</a>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
