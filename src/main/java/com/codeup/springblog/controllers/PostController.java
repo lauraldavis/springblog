@@ -12,60 +12,64 @@ import java.util.List;
 @Controller
 public class PostController {
 
-    private final PostRepository postDao;
+    private final PostRepository postsDao;
 
-    public PostController(PostRepository postDao) {
-        this.postDao = postDao;
+    public PostController(PostRepository postsDao) {
+        this.postsDao = postsDao;
     }
 
+    // returns json
     @GetMapping("/posts/{id}")
     @ResponseBody
     public String getPost(@PathVariable long id){
-        return postDao.getOne(id).toString();
+        return postsDao.getOne(id).toString();
     }
+
 
     // returns json
     @GetMapping("/posts")
     @ResponseBody
     public List<Post> getPosts() {
-        return postDao.findAll();
+        return postsDao.findAll();
     }
 
     // return a Thymeleaf view
     @GetMapping("/posts/view")
     public String getPostsIndex(Model model) {
-        model.addAttribute("posts", postDao.findAll());
+        model.addAttribute("posts", postsDao.findAll());
         return "posts/index";
     }
 
     @GetMapping("/posts/{id}/edit")
     public String editPost(@PathVariable long id, Model model) {
-        Post myPost = postDao.getOne(id);
+        Post myPost = postsDao.getOne(id);
         model.addAttribute("post", myPost);
         return "posts/edit";
     }
 
     @PostMapping("/posts/edit")
-    public String returnPost(@RequestParam(name="id") long id, @RequestParam(name="title") String title, @RequestParam(name="body") String body, Model model) {
+    public String returnPost(@RequestParam(name="id") long id,
+                             @RequestParam(name="title") String title,
+                             @RequestParam(name="body") String body, Model model) {
         Post post = new Post();
         post.setId((int)id);
         post.setTitle(title);
         post.setBody(body);
-        postDao.save(post);
+        postsDao.save(post);
         return "redirect:/posts/view";
     }
 
     @GetMapping("/posts/{id}/delete")
     public String deletePostById(@PathVariable long id, Model model) {
-        Post deletePost = postDao.getOne(id);
+        Post deletePost = postsDao.getOne(id);
         model.addAttribute("post", deletePost);
         return "/posts/delete";
     }
 
     @PostMapping("/posts/delete")
     public String deletePost(@RequestParam(name="id") long id) {
-        Post postId = postDao.getOne(id);
-        postDao.delete(postId);
+        Post postId = postsDao.getOne(id);
+        postsDao.delete(postId);
         return "redirect:/posts/view";
     }
 
