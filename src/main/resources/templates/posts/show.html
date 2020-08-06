@@ -4,9 +4,10 @@
 </head>
 <nav th:replace="/partials/partials :: navbar"/>
 <body>
-<!--    Not being used since I added Edit and Delete to /posts/view -->
-<!--    <h1 th:text="${post.title}"></h1>-->
-<!--    <h3 th:text="${post.body}"></h3>-->
+<!--    I added Edit and Delete to /posts/view, so this is just a placeholder view -->
+    <h1 th:text="${onePost.title}"></h1>
+    <h3 th:text="${onePost.body}"></h3>
+    <h5 th:text="${onePost.author.email}"></h5>
 </body>
 <footer th:replace="partials/partials :: footer"/>
 </html>
