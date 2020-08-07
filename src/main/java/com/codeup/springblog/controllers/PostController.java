@@ -22,21 +22,27 @@ public class PostController {
         this.usersDao = usersDao;
     }
 
-    // returns json - one post
+    @GetMapping("/posts")
+    public String redirect() {
+        return "redirect:posts/view";
+    }
+
+    // JSON - one post
     @GetMapping("/posts/json/{id}")
     @ResponseBody
     public String getPost(@PathVariable long id){
         return postsDao.getOne(id).toString();
     }
 
-    // returns json - list of posts
+    // JSON - list of posts
     @GetMapping("/posts/json")
     @ResponseBody
     public List<Post> getPosts() {
         return postsDao.findAllByOrderByIdDesc();
     }
 
-    // return a Thymeleaf view
+    // The rest are Thymeleaf pages
+
     @GetMapping("/posts/view")
     public String getPosts(Model model) {
         model.addAttribute("posts", postsDao.findAllByOrderByIdDesc());

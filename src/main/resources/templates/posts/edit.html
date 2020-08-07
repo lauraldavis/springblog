@@ -7,7 +7,8 @@
 
 <div class="container">
     <h3>Edit and save your changes</h3>
-    <form action="/posts/edit" method="post">
+
+    <form th:action="/posts/edit" th:method="post">
         <div class="form-group">
             <label for="title">Post Title</label>
             <input type="text" id="title" name="title" class="form-control" th:value="${post.title}" maxlength="100" required autofocus>
