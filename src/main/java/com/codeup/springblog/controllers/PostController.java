@@ -65,9 +65,12 @@ public class PostController {
     public String editPost(@RequestParam(name="id") long id,
                              @RequestParam(name="title") String title,
                              @RequestParam(name="body") String body, Model model) {
+        // TODO: validate logged in user can edit the post
+//        User user = usesDao.getDao.getOne(3L);
         Post post = postsDao.getOne(id);
         post.setTitle(title);
         post.setBody(body);
+//        post.setAuthor(user);
         postsDao.save(post);
         return "redirect:/posts/view";
     }
@@ -80,6 +83,7 @@ public class PostController {
 
     @PostMapping("/posts/delete")
     public String deletePost(@RequestParam(name="id") long id) {
+        // TODO: validate logged in user can delete the post
         postsDao.deleteById(id);
         return "redirect:/posts/view";
     }
@@ -92,7 +96,7 @@ public class PostController {
 
     @PostMapping("/posts/create")
     public String createPost(@ModelAttribute Post post) {
-        User user = usersDao.getOne(1L);
+        User user = usersDao.getOne(3L); // TODO: once we get to Spring Security, capture logged in user (hard code for now)
         post.setAuthor(user);
         postsDao.save(post);
         return "redirect:/posts/view";
