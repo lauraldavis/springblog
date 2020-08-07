@@ -2,6 +2,8 @@ package com.codeup.springblog.models;
 
 //import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 
 @Entity
@@ -18,7 +20,7 @@ public class Post {
     private String body;
 
     @ManyToOne
-//    @JsonManagedReference
+    @JsonManagedReference
     @JoinColumn (name = "user_id")
     private User author;
 
