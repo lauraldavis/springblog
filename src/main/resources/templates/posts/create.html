@@ -5,23 +5,19 @@
 <nav th:replace="/partials/partials :: navbar"/>
 <body>
 
-<div class="container">
+<div class="container mt-5">
     <h3>Create Post</h3>
 
     <form th:action="@{/posts/create}" th:method="POST" th:object="${post}">
-
         <div class="form-group">
-            Post Title:
-            <input class="form-control" th:field="*{title}" maxlength="100" required autofocus>
+            <label for="title">Post Title</label>
+            <input type="text" class="form-control" id="title" th:field="*{title}" maxlength="100" required autofocus>
         </div>
-
         <div class="form-group">
-            Post Body:
-            <input class="form-control" th:field="*{body}" maxlength="255" required>
+            <label for="body">Post</label>
+            <input type="text" class="form-control" id="body" th:field="*{body}" maxlength="255" required>
         </div>
-
         <button type="submit" id="id" class="btn btn-primary btn-sm btn-block">Save</button>
-
     </form>
 </div>
 </body>

@@ -23,23 +23,23 @@ public class PostController {
     }
 
     // returns json - one post
-//    @GetMapping("/posts/{id}")
-//    @ResponseBody
-//    public String getPost(@PathVariable long id){
-//        return postsDao.getOne(id).toString();
-//    }
+    @GetMapping("/posts/json/{id}")
+    @ResponseBody
+    public String getPost(@PathVariable long id){
+        return postsDao.getOne(id).toString();
+    }
 
     // returns json - list of posts
-//    @GetMapping("/posts")
-//    @ResponseBody
-//    public List<Post> getPosts() {
-//        return postsDao.findAll();
-//    }
+    @GetMapping("/posts/json")
+    @ResponseBody
+    public List<Post> getPosts() {
+        return postsDao.findAllByOrderByIdDesc();
+    }
 
     // return a Thymeleaf view
-    @GetMapping("/posts")
+    @GetMapping("/posts/view")
     public String getPosts(Model model) {
-        model.addAttribute("posts", postsDao.findAll());
+        model.addAttribute("posts", postsDao.findAllByOrderByIdDesc());
         return "posts/index";
     }
 
@@ -63,7 +63,7 @@ public class PostController {
         post.setTitle(title);
         post.setBody(body);
         postsDao.save(post);
-        return "redirect:/posts";
+        return "redirect:/posts/view";
     }
 
     @GetMapping("/posts/{id}/delete")
@@ -75,21 +75,21 @@ public class PostController {
     @PostMapping("/posts/delete")
     public String deletePost(@RequestParam(name="id") long id) {
         postsDao.deleteById(id);
-        return "redirect:/posts";
+        return "redirect:/posts/view";
     }
 
     @GetMapping("/posts/create")
-    public String createForm(Model model){
+    public String createPostForm(Model model){
         model.addAttribute("post", new Post());
         return "posts/create";
     }
 
     @PostMapping("/posts/create")
-    public String create(@ModelAttribute Post post) {
+    public String createPost(@ModelAttribute Post post) {
         User user = usersDao.getOne(1L);
         post.setAuthor(user);
         postsDao.save(post);
-        return "redirect:/posts";
+        return "redirect:/posts/view";
     }
 
 }
