@@ -7,7 +7,9 @@
 <body>
 
     <nav th:fragment="navbar">
-        This is your navbar
+        <a th:href="@{/posts/create}" class="btn btn-muted btn-sm">
+            <i class="fas fa-plus-square"></i>Create Post
+        </a>
     </nav>
 
     <header th:fragment="head (pageTitle)">

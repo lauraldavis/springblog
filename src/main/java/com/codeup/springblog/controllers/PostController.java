@@ -4,6 +4,7 @@ import com.codeup.springblog.models.Post;
 import com.codeup.springblog.models.User;
 import com.codeup.springblog.repositories.PostRepository;
 import com.codeup.springblog.repositories.UserRepository;
+import com.codeup.springblog.services.EmailService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -16,10 +17,14 @@ public class PostController {
 
     private final PostRepository postsDao; // dependency injection - Spring Boot uses IOC inversion of control
     private final UserRepository usersDao; // " is required to create any new objects
+    private final EmailService emailService;
 
-    public PostController(PostRepository postsDao, UserRepository usersDao) {
+    public PostController(PostRepository postsDao,
+                          UserRepository usersDao,
+                          EmailService emailService) {
         this.postsDao = postsDao;
         this.usersDao = usersDao;
+        this.emailService = emailService;
     }
 
     @GetMapping("/posts")
@@ -65,9 +70,12 @@ public class PostController {
     public String editPost(@RequestParam(name="id") long id,
                              @RequestParam(name="title") String title,
                              @RequestParam(name="body") String body, Model model) {
+        // TODO: validate logged in user can edit the post
+//        User user = usesDao.getDao.getOne(3L);
         Post post = postsDao.getOne(id);
         post.setTitle(title);
         post.setBody(body);
+//        post.setAuthor(user);
         postsDao.save(post);
         return "redirect:/posts/view";
     }
@@ -80,6 +88,7 @@ public class PostController {
 
     @PostMapping("/posts/delete")
     public String deletePost(@RequestParam(name="id") long id) {
+        // TODO: validate logged in user can delete the post
         postsDao.deleteById(id);
         return "redirect:/posts/view";
     }
@@ -92,10 +101,20 @@ public class PostController {
 
     @PostMapping("/posts/create")
     public String createPost(@ModelAttribute Post post) {
-        User user = usersDao.getOne(1L);
+        // TODO: once we get to Spring Security, capture logged in user (hard coded for now)
+        // don't delete user.id 4! killsmany@plants.com (username: trying2hard)
+        User user = usersDao.getOne(4L);
         post.setAuthor(user);
         postsDao.save(post);
         return "redirect:/posts/view";
+    }
+
+    @GetMapping("/email")
+    @ResponseBody
+    public String sendEmail() {
+        // don't delete post.id 18! Waterlily, Nymphaeaceae / Nymphaea ×thiona Ward
+        emailService.prepareAndSend(postsDao.getOne(18L), "Test Email!", "Testing sendEmail method from the PostController in springblog application!");
+        return "Check your mailtrap inbox!";
     }
 
 }
