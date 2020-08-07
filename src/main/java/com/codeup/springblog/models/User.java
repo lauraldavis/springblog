@@ -1,8 +1,7 @@
 package com.codeup.springblog.models;
 
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+//import com.fasterxml.jackson.annotation.JsonBackReference;
+//import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.List;
@@ -18,14 +17,14 @@ public class User {
     @Column(length = 60, nullable = false, unique = true)
     private String username;
 
-    @Column(length = 100, nullable = false)
+    @Column(length = 100, nullable = false, unique = true)
     private String email;
 
-    @Column(length = 240, nullable = false)
+    @Column(length = 100, nullable = false)
 //    @JsonIgnore
     private String password;
 
-    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL) // posts.user_id // there are other cascade options
 //    @JsonBackReference
     private List<Post> posts;
 

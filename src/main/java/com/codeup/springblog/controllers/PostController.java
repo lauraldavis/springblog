@@ -1,7 +1,9 @@
 package com.codeup.springblog.controllers;
 
 import com.codeup.springblog.models.Post;
+import com.codeup.springblog.models.User;
 import com.codeup.springblog.repositories.PostRepository;
+import com.codeup.springblog.repositories.UserRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -12,10 +14,12 @@ import java.util.List;
 @Controller
 public class PostController {
 
-    private final PostRepository postsDao;
+    private final PostRepository postsDao; // dependency injection - Spring Boot uses IOC inversion of control
+    private final UserRepository usersDao; // " is required to create any new objects
 
-    public PostController(PostRepository postsDao) {
+    public PostController(PostRepository postsDao, UserRepository usersDao) {
         this.postsDao = postsDao;
+        this.usersDao = usersDao;
     }
 
     // returns json - one post
@@ -47,8 +51,7 @@ public class PostController {
 
     @GetMapping("/posts/{id}/edit")
     public String editPostById(@PathVariable long id, Model model) {
-        Post myPost = postsDao.getOne(id);
-        model.addAttribute("post", myPost);
+        model.addAttribute("post", postsDao.getOne(id));
         return "posts/edit";
     }
 
@@ -56,8 +59,7 @@ public class PostController {
     public String editPost(@RequestParam(name="id") long id,
                              @RequestParam(name="title") String title,
                              @RequestParam(name="body") String body, Model model) {
-        Post post = new Post();
-        post.setId((int)id);
+        Post post = postsDao.getOne(id);
         post.setTitle(title);
         post.setBody(body);
         postsDao.save(post);
@@ -66,28 +68,28 @@ public class PostController {
 
     @GetMapping("/posts/{id}/delete")
     public String deletePostById(@PathVariable long id, Model model) {
-        Post deletePost = postsDao.getOne(id);
-        model.addAttribute("post", deletePost);
+        model.addAttribute("post", postsDao.getOne(id));
         return "/posts/delete";
     }
 
     @PostMapping("/posts/delete")
     public String deletePost(@RequestParam(name="id") long id) {
-        Post postId = postsDao.getOne(id);
-        postsDao.delete(postId);
+        postsDao.deleteById(id);
         return "redirect:/posts";
     }
 
-//    @GetMapping("/posts/create")
-//    public String showCreateForm(Model model){
-//        model.addAttribute("post", new Post());
-//        return "/posts/create";
-//    }
-//
-//    @PostMapping("/posts/create")
-//    public String create(@ModelAttribute Post post) {
-//        postDao.save(post);
-//        return "redirect:/posts/index";
-//    }
+    @GetMapping("/posts/create")
+    public String createForm(Model model){
+        model.addAttribute("post", new Post());
+        return "posts/create";
+    }
+
+    @PostMapping("/posts/create")
+    public String create(@ModelAttribute Post post) {
+        User user = usersDao.getOne(1L);
+        post.setAuthor(user);
+        postsDao.save(post);
+        return "redirect:/posts";
+    }
 
 }
