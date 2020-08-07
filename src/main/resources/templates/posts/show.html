@@ -4,10 +4,25 @@
 </head>
 <nav th:replace="/partials/partials :: navbar"/>
 <body>
-<!--    I added Edit and Delete to /posts/view, so this is just a placeholder view -->
-    <h1 th:text="${onePost.title}"></h1>
-    <h3 th:text="${onePost.body}"></h3>
-    <h5 th:text="${onePost.author.email}"></h5>
+
+<div class="container">
+    <div class="card mb-3">
+        <div class="card body">
+            <h3 th:text="${onePost.title}"></h3>
+            <p th:text="${onePost.body}"></p>
+            <div class="card-footer text-right">
+                <span class="float-left" th:text="${onePost.author.email}"></span>
+                <a th:href="@{/posts/{id}/edit(id=${onePost.id})}" class="btn btn-muted btn-sm">
+                    <i class="fas fa-edit"></i>Edit
+                </a>
+                <a th:href="@{/posts/{id}/delete(id=${onePost.id})}" class="btn btn-muted btn-sm">
+                    <i class="fas fa-trash"></i>Delete
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
 </body>
 <footer th:replace="partials/partials :: footer"/>
 </html>

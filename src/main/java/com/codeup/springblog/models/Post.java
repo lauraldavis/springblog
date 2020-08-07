@@ -1,6 +1,6 @@
 package com.codeup.springblog.models;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+//import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 
@@ -24,10 +24,24 @@ public class Post {
 
     public Post(){}
 
+    // used when saving edited post
     public Post(long id, String title, String body) {
         this.id = id;
         this.title = title;
         this.body = body;
+    }
+
+    public Post(String title, String body, User author) {
+        this.title = title;
+        this.body = body;
+        this.author = author;
+    }
+
+    public Post(long id, String title, String body, User author) {
+        this.id = id;
+        this.title = title;
+        this.body = body;
+        this.author = author;
     }
 
     public long getId() { return id; }
