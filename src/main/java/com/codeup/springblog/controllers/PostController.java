@@ -29,7 +29,7 @@ public class PostController {
 
     @GetMapping("/posts")
     public String redirect() {
-        return "redirect:posts/view";
+        return "redirect:/posts/view";
     }
 
     // JSON - one post
@@ -83,7 +83,7 @@ public class PostController {
     @GetMapping("/posts/{id}/delete")
     public String deletePostById(@PathVariable long id, Model model) {
         model.addAttribute("post", postsDao.getOne(id));
-        return "/posts/delete";
+        return "posts/delete";
     }
 
     @PostMapping("/posts/delete")
