@@ -5,6 +5,11 @@ import com.codeup.springblog.models.User;
 import com.codeup.springblog.repositories.PostRepository;
 import com.codeup.springblog.repositories.UserRepository;
 import com.codeup.springblog.services.EmailService;
+import com.codeup.springblog.services.PostSearchKeyword;
+import com.codeup.springblog.services.SillyService;
+import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.data.repository.query.Param;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -50,6 +55,8 @@ public class PostController {
 
     @GetMapping("/posts/view")
     public String getPosts(Model model) {
+//        User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        System.out.println(loggedInUser.getUsername()); // print logged in user
         model.addAttribute("posts", postsDao.findAllByOrderByIdDesc());
         return "posts/index";
     }
@@ -101,9 +108,8 @@ public class PostController {
 
     @PostMapping("/posts/create")
     public String createPost(@ModelAttribute Post post) {
-        // TODO: once we get to Spring Security, capture logged in user (hard coded for now)
-        // don't delete user.id 4! killsmany@plants.com (username: trying2hard)
-        User user = usersDao.getOne(4L);
+        User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = usersDao.getOne(loggedInUser.getId());
         post.setAuthor(user);
         postsDao.save(post);
         return "redirect:/posts/view";
@@ -112,9 +118,35 @@ public class PostController {
     @GetMapping("/email")
     @ResponseBody
     public String sendEmail() {
+        // TODO: replace the hard-coded post value - what action should generate an email?
         // don't delete post.id 18! Waterlily, Nymphaeaceae / Nymphaea ×thiona Ward
         emailService.prepareAndSend(postsDao.getOne(18L), "Test Email!", "Testing sendEmail method from the PostController in springblog application!");
         return "Check your mailtrap inbox!";
     }
+
+//    @GetMapping("/search")
+//    public String searchPostForm(Model model, @Param("keyword") String keyword){
+//        String posts = postsDao.findByKeyword(keyword);
+//        model.addAttribute("posts", posts);
+//        model.addAttribute("keyword", keyword);
+//        if (keyword != null) {
+//            return postsDao.findByKeyword(keyword);
+//        } else {
+//            return postsDao.findAll();
+//        }
+//    }
+//
+//    @PostMapping("/search")
+//    public String searchPosts(Model model, @Param("keyword") String keyword) {
+//        String posts = postsDao.findByKeyword(keyword);
+//        model.addAttribute("posts", posts);
+//        model.addAttribute("keyword", keyword);
+//        if (keyword != null) {
+//            return postsDao.findByKeyword(keyword);
+//        } else {
+//            return postsDao.findAll();
+//        }
+//    }
+//    TODO: get help implementing search by keywords in navbar
 
 }

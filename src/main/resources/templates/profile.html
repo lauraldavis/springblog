@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Profile</title>
+<head th:replace="partials/partials :: header (pageTitle = 'Profile')">
 </head>
 <nav th:replace="partials/partials :: navbar"/>
 <body>
@@ -12,10 +10,10 @@
     <p>Your username is: <span th:text="${username}">Placeholder</span></p>
     <p>Your password is: <span th:text="${password}">Placeholder</span></p>
 
-    <!--forEach ad in collection ads-->
+    <!--forEach post in collection posts-->
     <div th:if = "${isLoggedIn}">
-        <ul th:each="ad : ${ads}">
-            <li th:text="${ad}"></li>
+        <ul th:each="post : ${posts}">
+            <li th:text="${post}"></li>
         </ul>
     </div>
 
