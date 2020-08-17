@@ -1,20 +1,31 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Home</title>
+<head th:replace="partials/partials :: header (pageTitle = 'Home')">
 </head>
-<body>
-    <h1>This is your home page.</h1>
+<body th:style="'background: url(/img/blue-columbine.jpg) no-repeat center center fixed;'">
+<!--<body th:style="'background: url(/img/jack+pulpit.jpg) no-repeat center center fixed;'">-->
+<!--<body th:style="'background: url(/img/jack-in-the-pulpit.jpg) no-repeat center center fixed;'">-->
 
-    <h3>Welcome <span th:text="${cohort}">Placeholder</span></h3>
+<nav th:replace="partials/partials :: navbar"/>
 
-    <h3>What cohort are you in?</h3>
-    <form action="/" method="post">
-            <input type="text" name="cohort" id="cohort">
-        <button>Submit</button>
-    </form>
+    <div class="container" style="background-color: rgba(201, 201, 198, 0.6);">
+        <h1 class="text-success">Spring Blog</h1>
+
+        <h3>Welcome to the Spring Blog!</h3>
+        <p>Check out our weekly posts on plants, search for plants by common name, family name or scientific name. Don't see the one you're looking for? Sign up and create a post to add to the plants collection!</p>
+
+<!--        &lt;!&ndash; Example of populating text from a form on the same page:&ndash;&gt;-->
+<!--        <h3>Welcome <span th:text="${cohort}">Placeholder</span></h3>-->
+
+<!--        <h3>What cohort are you in?</h3>-->
+<!--        <form action="/" method="post">-->
+<!--                <input type="text" name="cohort" id="cohort">-->
+<!--            <button>Submit</button>-->
+<!--        </form>-->
+
+    </div>
 
 </body>
+<footer th:replace="partials/partials :: footer"/>
 </html>

@@ -1,29 +1,69 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Partials</title>
 </head>
 <body>
 
-    <nav th:fragment="navbar">
-        <a th:href="@{/posts/create}" class="btn btn-muted btn-sm">
-            <i class="fas fa-plus-square"></i>Create Post
-        </a>
-    </nav>
+<!--<nav th:fragment="navbar">-->
+<!--    <ul sec:authorize="!isAuthenticated()">-->
+<!--        <li><a th:href="@{/sign-up}" class="btn btn-muted btn-sm"><i class="fas fa-plus-square"></i>Sign Up</a></li>-->
+<!--        <li><form th:action="@{/login}" th:method="post"><button class="btn-link btn" style="margin-top: 8px">Login</button></form></li>-->
+<!--    </ul>-->
+<!--    <ul sec:authorize="isAuthenticated()">-->
+<!--        <li><a th:href="@{/posts/create}" class="btn btn-muted btn-sm"><i class="fas fa-plus-square"></i>Create Post</a></li>-->
+<!--        <li><form th:action="@{/logout}" th:method="post"><button class="btn-link btn" style="margin-top: 8px">Logout</button></form></li>-->
+<!--    </ul>-->
+<!--</nav>-->
 
-    <header th:fragment="head (pageTitle)">
-        <meta charset="UTF-8">
-        <title th:text="${pageTitle}"></title>
-        <link rel="stylesheet" th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css}">
-<!--        <script th:src="@{https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js}"></script>-->
-<!--        <script th:src="@{https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js}"></script>-->
-        <script src="https://kit.fontawesome.com/8d58347b96.js" crossorigin="anonymous"></script>
-    </header>
+<nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand text-success" href="/"><i class="fas fa-seedling"></i></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav text-success mr-auto">
+            <li class="nav-item active"><a class="nav-link" th:href="@{/}">Home <span class="sr-only">(current)</span></a></li>
+            <li class="nav-item"><a class="nav-link" th:href="@{/posts}">Posts</a></li>
+            <li class="nav-item"><a class="nav-link" th:href="@{/roll-dice}">Roll Dice</a></li>
+            <th:block sec:authorize="!isAuthenticated()">
+                <li><a th:href="@{/sign-up}" class="btn btn-muted btn-sm" style="margin-top: 5px"><i class="fas fa-plus-square"></i> Sign Up</a></li>
+                <li><a th:href="@{/login}"   class="btn btn-muted btn-sm" style="margin-top: 5px"><i class="fas fa-sign-in-alt"></i> Login</a></li>
+            </th:block>
+            <th:block sec:authorize="isAuthenticated()">
+                <li><a th:href="@{/posts/create}" class="btn btn-muted btn-sm" style="margin-top: 5px">
+                    <i class="fas fa-plus-square"></i> Create Post</a></li>
+                <li><form th:action="@{/logout}" th:method="post"><button class="btn btn-muted btn-sm" style="margin-top: 5px">
+                        <i class="fas fa-sign-out-alt"></i> Logout</button></form></li>
+            </th:block>
+        </ul>
+<!--        <form class="form-inline my-2 my-lg-0" th:action="@{/search}" th:method="post">-->
+<!--            <input id="search" type="text" name="keyword" th:field="*{keyword}" class="form-control mr-sm-2" placeholder="Search" aria-label="Search">-->
+<!--            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>-->
+<!--        </form>-->
+    </div>
+</nav>
 
-    <footer th:fragment="footer">
-        This is your footer
-    </footer>
+<header th:fragment="head (pageTitle)">
+    <meta charset="UTF-8">
+    <title th:text="${pageTitle}"></title>
+
+    <link rel="stylesheet" th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css}">
+    <script th:src="@{https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js}"></script>
+    <script th:src="@{https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js}"></script>
+    <script th:src="@{https://kit.fontawesome.com/8d58347b96.js}" crossorigin="anonymous"></script>
+</header>
+
+<footer th:fragment="footer">
+    <div class="container"
+         style="position: absolute; bottom: 0; left: 75px; width: 100%; height: 60px; line-height: 60px; background-color: rgba(255, 255, 255, 0.6)">
+        <p><small>Built by lauraldavis in <img th:src="@{/img/Codeup.png}" th:width="80"/> web development boot camp, © 2020.</small></p>
+    </div>
+</footer>
 
 </body>
 </html>
+}

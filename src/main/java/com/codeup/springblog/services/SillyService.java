@@ -6,6 +6,8 @@ import com.codeup.springblog.repositories.PostRepository;
 import com.codeup.springblog.repositories.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service("SillyService")
 public class SillyService {
 

@@ -25,15 +25,15 @@ public class ProfileController {
 
     @PostMapping("/profile")
     public String viewLoginInfo(@RequestParam(name="username") String username, @RequestParam(name="password") String password, Model model){
-        ArrayList<String> ads = new ArrayList<String>();
+        ArrayList<String> posts = new ArrayList<String>();
         boolean isLoggedIn = true;
-        ads.add("Ad 1");
-        ads.add("Ad 2");
-        ads.add("Ad 3");
+        posts.add("Ad 1");
+        posts.add("Ad 2");
+        posts.add("Ad 3");
 
         model.addAttribute("username", username);
         model.addAttribute("password", password);
-        model.addAttribute("ads", ads);
+        model.addAttribute("posts", posts);
         model.addAttribute("isLoggedIn", isLoggedIn);
 
         return "profile";

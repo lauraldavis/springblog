@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <head th:include="partials/partials :: header (pageTitle = 'Roll Dice')">
+    <head th:include="partials/partials :: header (pageTitle = 'Result (Roll Dice)')">
 </head>
+<nav th:replace="partials/partials :: navbar"/>
 <body>
     <p>Your guess was: <span th:text="${dice}"></span></p>
     <p>The dice rolled was: <span th:text="${roll}"></span></p>
@@ -11,4 +12,5 @@
     <a href="/roll-dice">Play again!</a>
 
 </body>
+<footer th:replace="partials/partials :: footer"/>
 </html>
