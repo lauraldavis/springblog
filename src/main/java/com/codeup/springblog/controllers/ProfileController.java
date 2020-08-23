@@ -1,5 +1,7 @@
 package com.codeup.springblog.controllers;
 
+import com.codeup.springblog.models.User;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,16 +14,19 @@ import java.util.ArrayList;
 @Controller
 public class ProfileController {
 
-    @GetMapping("/profile/{username}")
-    public String viewProfile(@PathVariable String username, Model model){
-        model.addAttribute("user", username);
+    @GetMapping("/profile")
+    public String viewProfile(Model model){
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("user", user);
         return "profile";
     }
 
-    @GetMapping("/profile")
-    public String viewProfile(){
-        return "profile";
-    }
+//    @GetMapping("/profile/edit")
+//    public String editProfile(Model model){
+//        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        model.addAttribute("user", user);
+//        return "profile";
+//    }
 
     @PostMapping("/profile")
     public String viewLoginInfo(@RequestParam(name="username") String username, @RequestParam(name="password") String password, Model model){
