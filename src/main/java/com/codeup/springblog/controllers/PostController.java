@@ -112,17 +112,19 @@ public class PostController {
         User user = usersDao.getOne(loggedInUser.getId());
         post.setAuthor(user);
         postsDao.save(post);
+        emailService.prepareAndSend(postsDao.getOne(post.getId()), post.getTitle(), post.getBody());
         return "redirect:/posts/view";
     }
 
-    @GetMapping("/email")
-    @ResponseBody
-    public String sendEmail() {
-        // TODO: replace the hard-coded post value - what action should generate an email?
-        // don't delete post.id 18! Waterlily, Nymphaeaceae / Nymphaea ×thiona Ward
-        emailService.prepareAndSend(postsDao.getOne(18L), "Test Email!", "Testing sendEmail method from the PostController in springblog application!");
-        return "Check your mailtrap inbox!";
-    }
+//    Test email with mailtrap
+//    @GetMapping("/email")
+//    @ResponseBody
+//    public String sendEmail() {
+//        // TODO: replace the hard-coded post value - what action should generate an email?
+//        // don't delete post.id 18! Waterlily, Nymphaeaceae / Nymphaea ×thiona Ward
+//        emailService.prepareAndSend(postsDao.getOne(18L), "Test Email!", "Testing sendEmail method from the PostController in springblog application!");
+//        return "Check your mailtrap inbox!";
+//    }
 
 //    @GetMapping("/search")
 //    public String searchPostForm(Model model, @Param("keyword") String keyword){
