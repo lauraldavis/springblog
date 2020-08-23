@@ -1,14 +1,17 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
 <head th:replace="partials/partials :: header (pageTitle = 'Profile')">
 </head>
 <nav th:replace="partials/partials :: navbar"/>
 <body>
+    <div>
+        <h1>Hello, <span th:text="${user.username}">World</span>!</h1>
 
-    <h1>Hello, <span th:text="${user}">World</span>!</h1>
-
-    <p>Your username is: <span th:text="${username}">Placeholder</span></p>
-    <p>Your password is: <span th:text="${password}">Placeholder</span></p>
+        <p>Your email is: <span th:text="${user.email}">Placeholder</span></p>
+        <p>Your username is: <span th:text="${user.username}">Placeholder</span></p>
+<!--        <a th:href="@{/profile/edit}" class="btn btn-muted btn-sm"><i class="fas fa-edit"></i>Edit</a>-->
+<!--        <a th:href="@{/profile/delete}" class="btn btn-muted btn-sm"><i class="fas fa-trash"></i>Delete Account</a>-->
+    </div>
 
     <!--forEach post in collection posts-->
     <div th:if = "${isLoggedIn}">
